@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>For My Favorite Nonchalant Person <3</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .flower {
+            font-size: 100px;
+            position: relative;
+        }
+
+        .hearts {
+            position: absolute;
+            top: -30px;
+            left: -40px;
+            font-size: 25px;
+            color: pink;
+            animation: float 2s infinite alternate;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-10px); }
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>For My Favorite Nonchalant Person &lt;3</h1>
+
+    <div class="flower">
+        🌻
+        <div class="hearts">💗 💕 💖</div>
+    </div>
+
+    <footer>
+        Every month with you feels like a beautiful reminder that I chose the right person. 
+        Im so grateful for us and I can’t wait for all the months ahead.
+    </footer>
+
+</body>
+</html>

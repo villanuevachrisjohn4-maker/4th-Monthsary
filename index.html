@@ -125,7 +125,8 @@ h1 {
 <script>
 
 /* Typing Animation */
-const text = "Everything I ever wanted in a flower is here 🌼";
+const text = "Every month with you feels like a beautiful reminder that I chose the right person. 
+    Im so grateful for us and I can’t wait for all the months ahead 💖";
 const typingElement = document.getElementById("typing");
 let index = 0;
 

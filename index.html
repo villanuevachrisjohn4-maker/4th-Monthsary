@@ -3,58 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>To My Favorite Nonchalant Person <3</title>
+<title>For My Favorite Nonchalant Person <3</title>
 
 <style>
 body {
     margin: 0;
-    background: #ffffff;
+    background: linear-gradient(to top, #fff5f8, #ffffff);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     overflow: hidden;
     text-align: center;
 }
 
 h1 {
-    margin-bottom: 10px;
     font-size: 2rem;
+    margin-bottom: 10px;
 }
 
-.message {
-    font-size: 1.2rem;
-    margin-top: 20px;
-    opacity: 0;
-    animation: fadeIn 3s ease forwards;
-    animation-delay: 2s;
-}
-
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
-
-/* SVG Flower */
+/* Flower GIF */
 .flower {
-    width: 200px;
-    animation: sway 4s ease-in-out infinite;
+    width: 220px;
+    max-width: 80vw;
+    height: auto;
+    animation: float 4s ease-in-out infinite;
+    z-index: 2;
 }
 
-@keyframes sway {
-    0% { transform: rotate(-3deg); }
-    50% { transform: rotate(3deg); }
-    100% { transform: rotate(-3deg); }
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Typing Message */
+.message {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    min-height: 24px;
+    border-right: 2px solid pink;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
 }
 
 /* Floating Hearts */
 .heart {
     position: absolute;
-    color: pink;
     font-size: 20px;
-    animation: floatUp 6s linear infinite;
+    color: pink;
+    animation: floatUp linear forwards;
     opacity: 0.8;
+    z-index: 1;
 }
 
 @keyframes floatUp {
@@ -68,13 +75,34 @@ h1 {
     }
 }
 
+/* Music Button */
+.music-btn {
+    margin-top: 20px;
+    padding: 8px 15px;
+    background: pink;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.music-btn:hover {
+    background: hotpink;
+    color: white;
+}
+
 /* Mobile adjustments */
 @media (max-width: 600px) {
-    .flower {
-        width: 150px;
-    }
     h1 {
         font-size: 1.5rem;
+    }
+
+    .flower {
+        width: 160px;
+    }
+
+    .message {
+        font-size: 1rem;
     }
 }
 </style>
@@ -83,47 +111,56 @@ h1 {
 
 <h1>For Gelie &lt;3</h1>
 
-<!-- SVG Sunflower -->
-<svg class="flower" viewBox="0 0 200 300">
-    <!-- Stem -->
-    <rect x="95" y="120" width="10" height="150" fill="green" />
-    <!-- Leaves -->
-    <ellipse cx="70" cy="180" rx="30" ry="15" fill="green" transform="rotate(-30 70 180)"/>
-    <ellipse cx="130" cy="210" rx="30" ry="15" fill="green" transform="rotate(30 130 210)"/>
-    <!-- Petals -->
-    <g fill="gold">
-        <circle cx="100" cy="100" r="60"/>
-    </g>
-    <!-- Center -->
-    <circle cx="100" cy="100" r="40" fill="brown"/>
-</svg>
+<!-- Your GIF -->
+<img src="flower.gif" class="flower" alt="Flower">
 
-<div class="message">
-    Every month with you feels like a beautiful reminder that I chose the right person. 
-    Im so grateful for us and I can’t wait for all the months ahead <3
-</div>
+<div class="message" id="typing"></div>
 
-<!-- Background Music -->
-<audio autoplay loop>
+<button class="music-btn" onclick="playMusic()">Tap to Play Music 🎵</button>
+
+<audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+
+/* Typing Animation */
+const text = "Everything I ever wanted in a flower is here 🌼";
+const typingElement = document.getElementById("typing");
+let index = 0;
+
+function type() {
+    if (index < text.length) {
+        typingElement.innerHTML += text.charAt(index);
+        index++;
+        setTimeout(type, 50);
+    }
+}
+setTimeout(type, 1000);
+
+
 /* Floating Hearts Generator */
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerHTML = "💗";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+    heart.style.animationDuration = (4 + Math.random() * 3) + "s";
     document.body.appendChild(heart);
 
     setTimeout(() => {
         heart.remove();
     }, 7000);
 }
+setInterval(createHeart, 700);
 
-setInterval(createHeart, 800);
+
+/* Music Play */
+function playMusic() {
+    const music = document.getElementById("bgMusic");
+    music.play();
+}
+
 </script>
 
 </body>

@@ -8,20 +8,32 @@
 <style>
 body {
     margin: 0;
-    background: linear-gradient(to top, #fff5f8, #ffffff);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
     text-align: center;
+    color: white;
+
+    /* Super Cool Animated Background */
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 h1 {
     font-size: 2rem;
     margin-bottom: 10px;
+    z-index: 2;
 }
 
 /* Flower GIF */
@@ -35,7 +47,7 @@ h1 {
 
 @keyframes float {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
+    50% { transform: translateY(-15px); }
     100% { transform: translateY(0px); }
 }
 
@@ -44,33 +56,46 @@ h1 {
     margin-top: 20px;
     font-size: 1.2rem;
     min-height: 24px;
-    border-right: 2px solid pink;
+    border-right: 2px solid white;
     white-space: nowrap;
     overflow: hidden;
-    animation: blink 0.7s infinite;
+    z-index: 2;
 }
 
-@keyframes blink {
-    50% { border-color: transparent; }
-}
-
-/* Floating Hearts */
-.heart {
+/* Floating Hearts Background */
+.floating-heart {
     position: absolute;
     font-size: 20px;
-    color: pink;
-    animation: floatUp linear forwards;
-    opacity: 0.8;
-    z-index: 1;
+    opacity: 0.5;
+    animation: floatUp linear infinite;
 }
 
 @keyframes floatUp {
     0% {
         transform: translateY(100vh);
-        opacity: 1;
+        opacity: 0.7;
     }
     100% {
         transform: translateY(-10vh);
+        opacity: 0;
+    }
+}
+
+/* Click Burst Hearts */
+.burst {
+    position: absolute;
+    font-size: 18px;
+    pointer-events: none;
+    animation: explode 800ms ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(1) translate(0,0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5) translate(var(--x), var(--y));
         opacity: 0;
     }
 }
@@ -79,11 +104,12 @@ h1 {
 .music-btn {
     margin-top: 20px;
     padding: 8px 15px;
-    background: pink;
+    background: white;
     border: none;
     border-radius: 20px;
     cursor: pointer;
     font-size: 0.9rem;
+    z-index: 2;
 }
 
 .music-btn:hover {
@@ -91,19 +117,11 @@ h1 {
     color: white;
 }
 
-/* Mobile adjustments */
+/* Mobile */
 @media (max-width: 600px) {
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    .flower {
-        width: 160px;
-    }
-
-    .message {
-        font-size: 1rem;
-    }
+    h1 { font-size: 1.5rem; }
+    .flower { width: 160px; }
+    .message { font-size: 1rem; }
 }
 </style>
 </head>
@@ -111,12 +129,11 @@ h1 {
 
 <h1>For Gelie &lt;3</h1>
 
-<!-- Your GIF -->
 <img src="flower.gif" class="flower" alt="Flower">
 
 <div class="message" id="typing"></div>
 
-<button class="music-btn" onclick="playMusic()">Tap to Play Music 🎵</button>
+<button class="music-btn" onclick="playMusic()">Play Music 🎵</button>
 
 <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
@@ -124,42 +141,55 @@ h1 {
 
 <script>
 
-/* Typing Animation */
-const text = "Every month with you feels like a beautiful reminder that I chose the right person. 
-    Im so grateful for us and I can’t wait for all the months ahead 💖";
-const typingElement = document.getElementById("typing");
-let index = 0;
+/* Typing Effect */
+const text = "Still falling for you, month after month 💕";
+const typing = document.getElementById("typing");
+let i = 0;
 
-function type() {
-    if (index < text.length) {
-        typingElement.innerHTML += text.charAt(index);
-        index++;
-        setTimeout(type, 50);
+function typeEffect() {
+    if (i < text.length) {
+        typing.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 50);
     }
 }
-setTimeout(type, 1000);
+setTimeout(typeEffect, 800);
 
-
-/* Floating Hearts Generator */
-function createHeart() {
+/* Background Floating Hearts */
+function createFloatingHeart() {
     const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💗";
+    heart.className = "floating-heart";
+    heart.innerHTML = "💖";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    }, 7000);
+    setTimeout(() => heart.remove(), 10000);
 }
-setInterval(createHeart, 700);
+setInterval(createFloatingHeart, 800);
 
+/* Click Burst Hearts */
+document.addEventListener("click", function(e) {
+    for (let i = 0; i < 8; i++) {
+        const heart = document.createElement("div");
+        heart.className = "burst";
+        heart.innerHTML = "💗";
+        heart.style.left = e.clientX + "px";
+        heart.style.top = e.clientY + "px";
 
-/* Music Play */
+        const x = (Math.random() - 0.5) * 200 + "px";
+        const y = (Math.random() - 0.5) * 200 + "px";
+        heart.style.setProperty('--x', x);
+        heart.style.setProperty('--y', y);
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 800);
+    }
+});
+
+/* Music */
 function playMusic() {
-    const music = document.getElementById("bgMusic");
-    music.play();
+    document.getElementById("bgMusic").play();
 }
 
 </script>

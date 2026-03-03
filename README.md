@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Kayle <3</title>
+<title>To My Favorite Nonchalant Person <3</title>
 
 <style>
 body {
@@ -81,7 +81,7 @@ h1 {
 </head>
 <body>
 
-<h1>For Kayle &lt;3</h1>
+<h1>For Gelie &lt;3</h1>
 
 <!-- SVG Sunflower -->
 <svg class="flower" viewBox="0 0 200 300">
@@ -99,7 +99,8 @@ h1 {
 </svg>
 
 <div class="message">
-    Everything I ever wanted in a flower is here 🌼
+    Every month with you feels like a beautiful reminder that I chose the right person. 
+    Im so grateful for us and I can’t wait for all the months ahead <3
 </div>
 
 <!-- Background Music -->
